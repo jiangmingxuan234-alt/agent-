@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "specialist-agent-workflow"
+version = "0.1.0"
+description = "A guarded LangGraph workflow that assigns code, documentation, tests, and review to specialist agents."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "langgraph>=1.0,<2",
+  "langgraph-checkpoint-sqlite>=3.0,<4",
+  "openai>=2.0,<3",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.7,<3",
+  "python-dotenv>=1.0,<2",
+  "rich>=13.9,<15",
+  "typer>=0.15,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<10",
+  "ruff>=0.9,<1",
+]
+
+[project.scripts]
+specialist-workflow = "specialist_workflow.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/specialist_workflow"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
